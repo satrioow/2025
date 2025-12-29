@@ -112,7 +112,19 @@ function finishSequence() {
 
     setTimeout(() => {
         textContainer.style.display = 'none';
+        
+        // Tampilkan Kartu Akhir
         mainContent.style.display = 'flex';
+
+        // --- FIX GIF FREEZE (RELOAD GAMBAR) ---
+        // Memaksa browser memuat ulang sumber gambar agar animasi GIF mulai dari awal
+        const gifImage = document.querySelector('.photo-frame img');
+        if (gifImage) {
+            const currentSrc = gifImage.src; 
+            gifImage.src = ''; // Kosongkan src sebentar
+            gifImage.src = currentSrc; // Isi kembali untuk memicu reload
+        }
+        // --------------------------------------
         
         setTimeout(() => {
             mainContent.style.opacity = 1;
