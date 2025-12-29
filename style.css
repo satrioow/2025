@@ -29,13 +29,12 @@ body, html {
 #main-content { display: none; opacity: 0; }
 #text-sequence-container { display: none; opacity: 0; pointer-events: none; }
 
-/* --- 💌 ENVELOPE STYLES (UKURAN DASAR) --- */
+/* --- 💌 ENVELOPE STYLES --- */
 .envelope-wrapper {
     position: relative; cursor: pointer;
     transition: transform 0.3s;
     z-index: 20;
 }
-/* Efek hover hanya di PC */
 @media (hover: hover) {
     .envelope-wrapper:hover { transform: scale(1.05); }
 }
@@ -48,7 +47,6 @@ body, html {
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-/* LIPATAN (Folds) */
 .fold-left, .fold-right {
     position: absolute; top: 0; width: 0; height: 0; border-style: solid; z-index: 2; 
 }
@@ -72,7 +70,6 @@ body, html {
     z-index: 4; 
 }
 
-/* SURAT DI DALAM (LETTER) */
 .letter {
     position: absolute; bottom: 0; left: 15px;
     width: 270px; height: 180px; background: #fff; border-radius: 5px;
@@ -80,7 +77,6 @@ body, html {
     display: flex; justify-content: center; align-items: center;
     box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
 }
-
 .letter-content { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
 .letter-icon { font-size: 3rem; margin-bottom: 5px; animation: cuteBounce 2s ease-in-out infinite; }
 .letter-text {
@@ -89,7 +85,6 @@ body, html {
 }
 @keyframes cuteBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
-/* SEGEL & INSTRUKSI */
 .heart-seal {
     position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%);
     font-size: 40px; z-index: 5; transition: opacity 0.4s;
@@ -104,46 +99,37 @@ body, html {
 @keyframes fadeInOut { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 @keyframes pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.1); } }
 
-/* ANIMASI MEMBUKA */
 .envelope-wrapper.open .flap { transform: rotateX(180deg); z-index: 0; }
 .envelope-wrapper.open .letter { transform: translateY(-100px); z-index: 2; }
 .envelope-wrapper.open .heart-seal { opacity: 0; }
 
-/* --- TEXT SEQUENCE STYLES --- */
+/* --- TEXT SEQUENCE --- */
 #sequence-text {
     font-family: 'Fredoka One', cursive;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: 20px; padding: 20px; width: 100%;
 }
 .seq-icon {
-    font-size: 4rem; /* Ikon lebih besar */
-    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
+    font-size: 4rem; filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
     animation: subtleFloat 3s ease-in-out infinite;
 }
 .seq-message {
     font-size: 2rem; color: #ffe0e6; text-align: center; line-height: 1.4;
-    text-shadow: 0 0 20px rgba(255, 77, 109, 1);
-    max-width: 90%; /* Agar teks tidak mentok pinggir layar HP */
+    text-shadow: 0 0 20px rgba(255, 77, 109, 1); max-width: 90%;
 }
 .pop-in { animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
 @keyframes popIn { 0% { opacity: 0; transform: scale(0.8) translateY(20px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
 @keyframes subtleFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-/* --- FINAL CARD --- */
+/* --- FINAL CARD (DEFAULT PC) --- */
 .glass-card {
     background: rgba(20, 20, 40, 0.6);
     backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     border-radius: 30px;
-    text-align: center; 
-    padding: 40px 25px; /* Padding lebih besar */
-    
-    /* Ukuran Responsif untuk HP */
-    width: 85%; /* Lebar 85% dari layar HP */
-    max-width: 380px; /* Tapi jangan lebih lebar dari 380px di tablet/PC */
-    min-height: 550px;
-    
+    text-align: center; padding: 40px 25px;
+    width: 85%; max-width: 380px; min-height: 500px;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     color: white;
 }
@@ -157,20 +143,14 @@ body, html {
 
 h1 { 
     color: #ff9a9e; font-family: 'Fredoka One'; margin-bottom: 15px; 
-    font-size: 2.2rem; /* Judul lebih besar */
-    text-shadow: 0 0 10px rgba(255, 154, 158, 0.5); 
+    font-size: 2.2rem; text-shadow: 0 0 10px rgba(255, 154, 158, 0.5); 
 }
-
 .message { 
-    color: #e0e0e0; 
-    font-size: 16px; /* Ukuran font baca diperbesar */
-    line-height: 1.6; margin-bottom: 25px; font-weight: 500; 
+    color: #e0e0e0; font-size: 16px; line-height: 1.6; margin-bottom: 25px; font-weight: 500; 
 }
-
 .highlight { 
     background: rgba(255, 255, 255, 0.1); color: #ff9a9e; 
-    padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);
-    display: inline-block; /* Agar padding rapi */
+    padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); display: inline-block; 
 }
 
 .music-player {
@@ -188,45 +168,39 @@ h1 {
 .heart { position: fixed; top: -10vh; z-index: 100; animation: fall linear forwards; pointer-events: none; }
 @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
-
-/* --- 📱 KHUSUS TAMPILAN MOBILE (RESPONSIVE) 📱 --- */
+/* --- 📱 KHUSUS HP (OPTIMASI UKURAN) 📱 --- */
 @media screen and (max-width: 768px) {
+    /* 1. Amplop tetap besar */
+    .envelope-wrapper { transform: scale(1.1); } /* Dikecilkan dikit dari 1.2 biar ga terlalu penuh */
     
-    /* 1. PERBESAR AMPLOP */
-    /* Kita gunakan transform scale agar geometri lipatan tidak rusak */
-    .envelope-wrapper {
-        transform: scale(1.2); /* Perbesar 1.2x lipat di HP */
-    }
-    .envelope-wrapper:hover {
-        transform: scale(1.2); /* Matikan efek hover zoom di HP */
-    }
-    
-    /* 2. TEKS INSTRUKSI LEBIH JELAS */
-    .tap-instruction {
-        font-size: 14px;
-        bottom: -45px;
-    }
-
-    /* 3. SEQUENCE TEXT LEBIH BESAR */
-    .seq-icon { font-size: 5rem; }
-    .seq-message { font-size: 1.8rem; padding: 0 10px; }
-
-    /* 4. KARTU AKHIR LEBIH LEBAR */
+    /* 2. CARD LEBIH KECIL & RAMPING */
     .glass-card {
-        width: 90%; /* Hampir memenuhi lebar layar */
-        min-height: 60vh; /* Minimal tinggi 60% layar */
-        padding: 30px 20px;
-    }
-    
-    .message {
-        font-size: 17px; /* Teks pesan lebih besar lagi */
-    }
-    
-    h1 {
-        font-size: 2.5rem; /* Judul "Hi, Ayaa!" lebih besar */
+        width: 85%;         /* Lebar 85% layar */
+        max-width: 340px;   /* Maksimal lebar */
+        min-height: auto;   /* Tinggi menyesuaikan isi (PENTING) */
+        padding: 25px 20px; /* Padding dikurangi biar ga makan tempat */
+        margin-top: 20px;
     }
 
+    /* 3. FOTO DIPERKECIL */
     .photo-frame {
-        max-width: 100%; /* Foto mengikuti lebar kartu */
+        max-width: 180px;   /* Foto lebih kecil di HP */
+        margin-bottom: 15px;
+    }
+
+    /* 4. FONT SIZE DISESUAIKAN */
+    h1 {
+        font-size: 1.8rem;  /* Judul "Hi Ayaa" diperkecil sedikit */
+        margin-bottom: 10px;
+    }
+
+    .message {
+        font-size: 14px;    /* Teks pesan ukuran standar baca */
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+
+    .music-player {
+        padding: 10px 15px; /* Player lebih ramping */
     }
 }
