@@ -6,7 +6,7 @@ const messages = [
     "thank you for your patience",
     "thank you for being the light",
     "in my darkest days",
-    "I love you to the moon & back, Ayaa 🌙"
+    "I love you to the moon & back, Ayaa "
 ];
 
 // --- ICONS FOR SEQUENCE ---
@@ -41,14 +41,14 @@ function openEnvelope() {
 
     // 🎵 MUSIC LOGIC: Start 02:55 + Fade In 5s 🎵
     if(music) {
-        music.currentTime = 175; // 2 menit 55 detik = 175 detik
-        music.volume = 0; // Mulai dari volume 0 (mute)
+        music.currentTime = 175; // 2 menit 55 detik
+        music.volume = 0; 
         
         music.play().then(() => {
-            // Logika Fade In
+            // Fade In Logic
             let vol = 0;
-            const targetVolume = 0.6; // Volume target (60%)
-            const fadeDuration = 5000; // 5 Detik
+            const targetVolume = 0.6; 
+            const fadeDuration = 5000; 
             const intervalTime = 100; 
             const step = targetVolume / (fadeDuration / intervalTime);
 
@@ -66,7 +66,7 @@ function openEnvelope() {
         });
     }
 
-    // Sequence Animasi Visual
+    // Visual Animation
     setTimeout(() => {
         introScreen.style.opacity = 0;
         
@@ -89,13 +89,11 @@ function playNextMessage() {
         const icon = sequenceIcons[currentIndex] || sequenceIcons[0];
         const text = messages[currentIndex];
 
-        // Masukkan HTML (Ikon + Teks)
         textElement.innerHTML = `
             <div class="seq-icon">${icon}</div>
             <div class="seq-message">${text}</div>
         `;
         
-        // Reset Animasi
         textElement.classList.remove('pop-in');
         void textElement.offsetWidth; 
         textElement.classList.add('pop-in');
@@ -112,20 +110,17 @@ function finishSequence() {
 
     setTimeout(() => {
         textContainer.style.display = 'none';
-        
-        // Tampilkan Kartu Akhir
         mainContent.style.display = 'flex';
-
-        // --- FIX GIF FREEZE (RELOAD GAMBAR) ---
-        // Memaksa browser memuat ulang sumber gambar agar animasi GIF mulai dari awal
+        
+        // --- FIX GIF LOCAL FILE (FORCE RELOAD) ---
         const gifImage = document.querySelector('.photo-frame img');
         if (gifImage) {
-            const currentSrc = gifImage.src; 
-            gifImage.src = ''; // Kosongkan src sebentar
-            gifImage.src = currentSrc; // Isi kembali untuk memicu reload
+            // Menambahkan timestamp unik agar browser menganggap ini gambar baru
+            // sehingga animasi GIF diputar ulang dari frame pertama
+            gifImage.src = 'icon.gif?t=' + new Date().getTime();
         }
-        // --------------------------------------
-        
+        // -----------------------------------------
+
         setTimeout(() => {
             mainContent.style.opacity = 1;
             
