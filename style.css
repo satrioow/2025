@@ -2,6 +2,9 @@
 body, html { margin: 0; padding: 0; width: 100%; height: 100%; font-family: 'Quicksand', sans-serif; overflow: hidden; background-color: #0f0c29; }
 .night-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; background-image: url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=2564&auto=format&fit=crop'); background-size: cover; background-position: center; background-repeat: no-repeat; filter: blur(8px) brightness(0.6); transform: scale(1.1); }
 
+/* 🎆 FIREWORKS CANVAS */
+#fireworks-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+
 /* --- WRAPPERS --- */
 #intro-screen, #main-content, #text-sequence-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; z-index: 10; transition: opacity 1s ease; }
 #main-content { display: none; opacity: 0; }
@@ -37,13 +40,24 @@ body, html { margin: 0; padding: 0; width: 100%; height: 100%; font-family: 'Qui
 @keyframes subtleFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
 /* FINAL CARD */
-.glass-card { background: rgba(20, 20, 40, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); border-radius: 30px; text-align: center; padding: 40px 25px; width: 85%; max-width: 380px; min-height: 500px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; }
-.photo-frame { width: 100%; max-width: 250px; height: auto; border-radius: 20px; border: none; overflow: hidden; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+.glass-card { background: rgba(20, 20, 40, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); border-radius: 30px; text-align: center; padding: 30px 25px; width: 85%; max-width: 380px; min-height: 500px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; margin-bottom: 20px; }
+.photo-frame { width: 100%; max-width: 250px; height: auto; border-radius: 20px; border: none; overflow: hidden; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
 .photo-frame img { width: 100%; height: auto; display: block; }
-h1 { color: #ff9a9e; font-family: 'Fredoka One'; margin-bottom: 15px; font-size: 2.2rem; text-shadow: 0 0 10px rgba(255, 154, 158, 0.5); }
-.message { color: #e0e0e0; font-size: 16px; line-height: 1.6; margin-bottom: 25px; font-weight: 500; }
+h1 { color: #ff9a9e; font-family: 'Fredoka One'; margin-bottom: 10px; font-size: 2rem; text-shadow: 0 0 10px rgba(255, 154, 158, 0.5); }
+.message { color: #e0e0e0; font-size: 15px; line-height: 1.5; margin-bottom: 20px; font-weight: 500; }
 .highlight { background: rgba(255, 255, 255, 0.1); color: #ff9a9e; padding: 4px 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); display: inline-block; }
-.music-player { background: rgba(0, 0, 0, 0.3); padding: 12px 20px; border-radius: 50px; display: flex; align-items: center; gap: 15px; width: 90%; margin-top: 10px; border: 1px solid rgba(255,255,255,0.1); }
+
+/* 🤫 HIDDEN MESSAGE STYLE */
+#moon-trigger { cursor: pointer; text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #fff; transition: color 0.3s; }
+#moon-trigger:hover { color: #fff; text-shadow: 0 0 10px #fff; }
+
+/* 🎰 WHY I LOVE YOU GENERATOR */
+#reason-container { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 15px; width: 90%; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1); }
+#reason-text { font-size: 14px; font-style: italic; color: #fff; margin: 0 0 10px 0; min-height: 20px; }
+#reason-btn { background: #ff4d6d; border: none; border-radius: 20px; color: white; padding: 5px 15px; font-size: 12px; cursor: pointer; font-family: 'Quicksand'; font-weight: bold; transition: transform 0.2s; }
+#reason-btn:active { transform: scale(0.9); }
+
+.music-player { background: rgba(0, 0, 0, 0.3); padding: 10px 20px; border-radius: 50px; display: flex; align-items: center; gap: 15px; width: 90%; border: 1px solid rgba(255,255,255,0.1); }
 .play-icon { font-size: 20px; color: #ff9a9e; }
 .track-info { display: flex; flex-direction: column; align-items: flex-start; flex-grow: 1; }
 .title { font-size: 14px; font-weight: bold; color: #fff; }
@@ -57,38 +71,43 @@ h1 { color: #ff9a9e; font-family: 'Fredoka One'; margin-bottom: 15px; font-size:
 #memory-gallery { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 12, 41, 0.95); backdrop-filter: blur(10px); z-index: 100; display: none; flex-direction: column; opacity: 0; transition: opacity 0.5s ease; overflow-y: auto; }
 .gallery-header { text-align: center; padding: 20px; position: sticky; top: 0; background: rgba(15, 12, 41, 0.95); z-index: 10; border-bottom: 1px solid rgba(255,255,255,0.1); }
 .gallery-header h2 { color: #ff9a9e; font-family: 'Fredoka One'; font-size: 1.5rem; margin: 0; }
-.gallery-grid { padding: 20px; display: grid; grid-template-columns: 1fr; gap: 25px; padding-bottom: 20px; }
+.gallery-grid { padding: 20px; display: grid; grid-template-columns: 1fr; gap: 25px; padding-bottom: 10px; }
 .memory-month { display: flex; flex-direction: column; align-items: center; opacity: 0; animation: slideUp 0.6s forwards; }
 .photo-item { background: #fff; padding: 6px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); width: 100%; transition: transform 0.3s; }
-.photo-item:hover { transform: scale(1.02); }
 .photo-item img { width: 100%; height: auto; border-radius: 8px; display: block; }
-.month-label { margin-top: 12px; font-family: 'Fredoka One', cursive; color: #ff9a9e; font-size: 1.2rem; text-align: center; text-shadow: 0 2px 4px rgba(0,0,0,0.5); letter-spacing: 1px; }
+.month-label { margin-top: 12px; font-family: 'Fredoka One', cursive; color: #ff9a9e; font-size: 1.2rem; text-align: center; }
 
-/* Animasi Galeri */
-.memory-month:nth-child(1) { animation-delay: 0.2s; }
-.memory-month:nth-child(2) { animation-delay: 0.4s; }
-.memory-month:nth-child(3) { animation-delay: 0.6s; }
-.memory-month:nth-child(4) { animation-delay: 0.8s; }
-.memory-month:nth-child(5) { animation-delay: 1.0s; }
-.memory-month:nth-child(6) { animation-delay: 1.2s; }
-.memory-month:nth-child(7) { animation-delay: 1.4s; }
-.memory-month:nth-child(8) { animation-delay: 1.6s; }
-.memory-month:nth-child(9) { animation-delay: 1.8s; }
+
+/* ANIMATION DELAYS */
+.memory-month:nth-child(1) { animation-delay: 0.1s; } .memory-month:nth-child(2) { animation-delay: 0.2s; }
+.memory-month:nth-child(3) { animation-delay: 0.3s; } .memory-month:nth-child(4) { animation-delay: 0.4s; }
+.memory-month:nth-child(5) { animation-delay: 0.5s; } .memory-month:nth-child(6) { animation-delay: 0.6s; }
+.memory-month:nth-child(7) { animation-delay: 0.7s; } .memory-month:nth-child(8) { animation-delay: 0.8s; }
+.memory-month:nth-child(9) { animation-delay: 0.9s; }
 @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
 /* BUTTONS */
-.action-btn { background: linear-gradient(45deg, #ff4d6d, #ff9a9e); border: none; padding: 15px 30px; border-radius: 50px; color: white; font-family: 'Quicksand', sans-serif; font-weight: bold; font-size: 16px; cursor: pointer; box-shadow: 0 5px 20px rgba(255, 77, 109, 0.5); transition: transform 0.2s; animation: pulseBtn 2s infinite; margin-top: 10px; }
+.action-btn { background: linear-gradient(45deg, #ff4d6d, #ff9a9e); border: none; padding: 15px 30px; border-radius: 50px; color: white; font-family: 'Quicksand', sans-serif; font-weight: bold; font-size: 16px; cursor: pointer; box-shadow: 0 5px 20px rgba(255, 77, 109, 0.5); transition: transform 0.2s; animation: pulseBtn 2s infinite; }
 .action-btn:active { transform: scale(0.95); }
-.secondary-btn { background: transparent; border: 2px solid rgba(255, 154, 158, 0.5); padding: 10px 20px; border-radius: 50px; color: #ff9a9e; font-family: 'Quicksand', sans-serif; font-weight: bold; font-size: 14px; cursor: pointer; margin-top: 20px; transition: all 0.3s; }
+.secondary-btn { background: transparent; border: 2px solid rgba(255, 154, 158, 0.5); padding: 10px 20px; border-radius: 50px; color: #ff9a9e; font-family: 'Quicksand', sans-serif; font-weight: bold; font-size: 14px; cursor: pointer; margin-top: 15px; transition: all 0.3s; }
 .secondary-btn:hover { background: rgba(255, 154, 158, 0.1); border-color: #ff9a9e; color: #fff; }
 .secondary-btn:active { transform: scale(0.95); }
 @keyframes pulseBtn { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 109, 0.7); } 70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 77, 109, 0); } 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 109, 0); } }
+
+/* ❤️ SPAM LOVE BUTTON */
+#spam-love-container { position: fixed; bottom: 30px; right: 30px; z-index: 200; display: none; } /* Default Hidden */
+#spam-love-btn { width: 60px; height: 60px; border-radius: 50%; background: #ff4d6d; border: none; font-size: 25px; color: white; cursor: pointer; box-shadow: 0 5px 15px rgba(255, 77, 109, 0.6); transition: transform 0.1s; animation: pulseBtn 2s infinite; }
+#spam-love-btn:active { transform: scale(0.8); }
+
+/* Flying Heart Animation */
+.flying-heart { position: fixed; bottom: 80px; right: 45px; font-size: 25px; pointer-events: none; animation: flyUp 1.5s ease-out forwards; z-index: 150; }
+@keyframes flyUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-300px) scale(1.5); opacity: 0; } }
 
 /* RESPONSIVE */
 @media screen and (max-width: 768px) {
     .envelope-wrapper { transform: scale(1.1); }
     .glass-card { width: 85%; max-width: 340px; min-height: auto; padding: 25px 20px; margin-top: 20px; }
-    .photo-frame { max-width: 180px; margin-bottom: 15px; }
+    .photo-frame { max-width: 180px; margin-bottom: 10px; }
     h1 { font-size: 1.8rem; margin-bottom: 10px; }
     .message { font-size: 14px; margin-bottom: 20px; }
     .music-player { padding: 10px 15px; }
