@@ -6,7 +6,7 @@ const messages = [
     "thank you for your patience",
     "thank you for being the light",
     "in my darkest days",
-    "I love you to the moon & back, Ayaa 🌙"
+    "I love you to the moon & back, Ayaa "
 ];
 const sequenceIcons = ["🌌", "✨", "🐻", "🤍", "🌟", "🌑", "💖"];
 
